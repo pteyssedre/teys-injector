@@ -1,0 +1,33 @@
+{
+  "name": "teys-injector",
+  "version": "1.0.0",
+  "description": "very simple injector for Typescript code to simplify and speed up code production",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/pteyssedre/teys-injector.git"
+  },
+  "keywords": [
+    "typescript",
+    "ioc",
+    "simple",
+    "teyssedre.ca"
+  ],
+  "author": {
+    "name": "Pierre Teyssedre",
+    "email": "pierre@teyssedre.ca",
+    "url": "https://www.teyssedre.ca"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pteyssedre/teys-injector/issues"
+  },
+  "homepage": "https://github.com/pteyssedre/teys-injector#readme",
+  "dependencies": {
+    "reflect-metadata": "^0.1.12",
+    "typescript": "^2.8.3"
+  }
+}
