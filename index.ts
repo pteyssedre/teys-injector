@@ -89,8 +89,11 @@ export function Inject(name?: string, props?: any) {
             const functionName = /function(.*[a-zA-Z])/g;
             const match = functionName.exec(data.toString());
             if (match && match.length > 0) {
-                const name = match[1].trim();
-                const injector = injectorMap[name];
+                const n = match[1].trim();
+                const injector = injectorMap[n];
+                if (!injector) {
+                    throw new Error(`No register was made for ${key}:${n}`)
+                }
                 if (injector.options.type === ResolveType.New_Instance) {
                     v = injector.constructor();
                 } else {
