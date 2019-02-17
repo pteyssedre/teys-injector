@@ -92,7 +92,14 @@ export function Inject(name?: string, props?: any) {
                 const n = match[1].trim();
                 const injector = injectorMap[n];
                 if (!injector) {
-                    throw new Error(`No register was made for ${key}:${n}`)
+                    if (name) {
+                        Object.defineProperty(target, key, {
+                            get: () => { return Injector.Resolve(name); },
+                            set: () => { throw new Error(`cannot set injected property ${key}`)}
+                        })
+                    } else {
+                        throw new Error(`No register was made for ${key}:${n}`)
+                    }
                 }
                 if (injector.options.type === ResolveType.New_Instance) {
                     v = injector.constructor();

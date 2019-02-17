@@ -88,7 +88,15 @@ function Inject(name, props) {
                 var n = match[1].trim();
                 var injector = injectorMap[n];
                 if (!injector) {
-                    throw new Error("No register was made for " + key + ":" + n);
+                    if (name) {
+                        Object.defineProperty(target, key, {
+                            get: function () { return Injector.Resolve(name); },
+                            set: function () { throw new Error("cannot set injected property " + key); }
+                        });
+                    }
+                    else {
+                        throw new Error("No register was made for " + key + ":" + n);
+                    }
                 }
                 if (injector.options.type === ResolveType.New_Instance) {
                     v = injector.constructor();
