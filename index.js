@@ -1,5 +1,15 @@
 "use strict";
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Inject = exports.Injectable = exports.Injector = exports.ResolveType = exports.InjectedBy = void 0;
 require("reflect-metadata");
 var InjectedBy;
 (function (InjectedBy) {
@@ -28,7 +38,7 @@ var Injector = /** @class */ (function () {
         }
         var r = Injector.instance.cache[key];
         if (r && r.hasOwnProperty("proto") && r.hasOwnProperty("args")) {
-            return new ((_a = r.proto).bind.apply(_a, [void 0].concat(r.args)))();
+            return new ((_a = r.proto).bind.apply(_a, __spreadArray([void 0], r.args, false)))();
         }
         return r;
     };
@@ -90,12 +100,17 @@ function Inject(name, props) {
                 if (!injector) {
                     if (name) {
                         Object.defineProperty(target, key, {
-                            get: function () { return Injector.Resolve(name); },
-                            set: function () { throw new Error("cannot set injected property " + key); }
+                            get: function () {
+                                return Injector.Resolve(name);
+                            },
+                            set: function () {
+                                throw new Error("cannot set injected property ".concat(key));
+                            }
                         });
+                        return;
                     }
                     else {
-                        throw new Error("No register was made for " + key + ":" + n);
+                        throw new Error("No register was made for ".concat(key, ":").concat(n));
                     }
                 }
                 if (injector.options.type === ResolveType.New_Instance) {

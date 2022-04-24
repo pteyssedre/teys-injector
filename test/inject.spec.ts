@@ -1,7 +1,5 @@
-import { Inject, Injector } from "../index";
-import * as chai from "chai";
-
-const assert = chai.assert;
+import {Inject, Injector} from "../index";
+import {assert} from "chai";
 
 class TestInject {
 
