@@ -94,9 +94,14 @@ export function Inject(name?: string, props?: any) {
                 if (!injector) {
                     if (name) {
                         Object.defineProperty(target, key, {
-                            get: () => { return Injector.Resolve(name); },
-                            set: () => { throw new Error(`cannot set injected property ${key}`)}
+                            get: () => {
+                                return Injector.Resolve(name);
+                            },
+                            set: () => {
+                                throw new Error(`cannot set injected property ${key}`)
+                            }
                         })
+                        return
                     } else {
                         throw new Error(`No register was made for ${key}:${n}`)
                     }
